@@ -120,12 +120,16 @@ namespace CustomTransform.ECS
             }
         }
 
-        private Entity SpawnEntity(float x, float y)
+        private Entity SpawnEntity(float x, float y, Entity? parent = null)
         {
             var entity = entityManager.CreateEntity(entityArchetype);
             entityManager.SetComponentData(entity, new TransformComponent { position = new Vector2(x, y), scale = 1f });
             entityManager.SetSharedComponentData(entity, new RenderMesh { mesh = mesh, material = material });
             entityManager.SetComponentData(entity, new RenderBounds { Value = mesh.bounds.ToAABB() });
+
+            if (parent != null)
+                Parentize(entity, parent);
+
             return entity;
         }
 

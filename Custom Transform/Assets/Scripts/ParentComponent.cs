@@ -16,4 +16,20 @@ namespace CustomTransform.ECS
     {
         public Entity Value;
     }
+
+    [Serializable]
+    public struct Child : ISystemStateBufferElementData, IBufferElementData
+    {
+        public Entity Value;
+
+        public static implicit operator Entity(Child e)
+        {
+            return e.Value;
+        }
+
+        public static implicit operator Child(Entity e)
+        {
+            return new Child { Value = e };
+        }
+    }
 }
